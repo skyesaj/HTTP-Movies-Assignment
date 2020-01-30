@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 export default class Movie extends React.Component {
   constructor(props) {
@@ -8,6 +9,16 @@ export default class Movie extends React.Component {
       movie: null
     };
   }
+
+  deleteMovie = () => {
+    console.log(this.state.movie.id);
+    axios
+      .delete(`http://localhost:5000/api/movies/${this.state.movie.id}`)
+      .then(res => {
+        console.log(res);
+        this.props.history.push("/");
+      });
+  };
 
   componentDidMount() {
     this.fetchMovie(this.props.match.params.id);
@@ -42,6 +53,10 @@ export default class Movie extends React.Component {
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
+        <Link to={"/update-movie/${this.state.movie.id}"}>Update</Link>
+        <button className="delete-button" onClick={this.deleteMovie}>
+          delete
+        </button>
       </div>
     );
   }
