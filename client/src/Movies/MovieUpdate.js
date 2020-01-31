@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function UpdateMovie(props) {
+function MovieUpdate(props) {
   const [status, setStatus] = useState();
   const [update, setUpdate] = useState({
     title: "",
@@ -12,7 +12,7 @@ function UpdateMovie(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/movies/${props.match.params.id}")
+      .get(`http://localhost:5000/api/movies/${props.match.params.id}`)
       .then(res => {
         setUpdate(res.data);
       });
@@ -28,7 +28,7 @@ function UpdateMovie(props) {
   const handleSubmit = event => {
     event.preventDefault();
     axios
-      .put("http://localhost:5000/api/movies/${props.match.params.id}", update)
+      .put(`http://localhost:5000/api/movies/${props.match.params.id}`, update)
       .then(res => {
         setStatus(res.statusText);
         console.log(props);
@@ -38,7 +38,7 @@ function UpdateMovie(props) {
 
   return (
     <div>
-      <h1>Update Movie</h1>
+      <h1>Movie Update</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Title
@@ -77,4 +77,4 @@ function UpdateMovie(props) {
     </div>
   );
 }
-export default UpdateMovie;
+export default MovieUpdate;
